@@ -1,5 +1,6 @@
-package cn.wzd.ssm.test;
+package cn.wzd.ssm.test.dao;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,12 +10,18 @@ import cn.wzd.ssm.po.User;
 
 public class UserDaoTest {
 	
+	private ApplicationContext ctx;
+	
+	@Before
+	public void setUp(){		
+		this.ctx = new ClassPathXmlApplicationContext("classpath:ApplicationContext.xml");
+	}
+	
 	@Test
 	public void testFindUserById() throws Exception{
 	
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:ApplicationContext.xml");
 		
-		UserDao userDao = (UserDao)ctx.getBean("userDaoImpl");
+		UserDao userDao = (UserDao)this.ctx.getBean("userDaoImpl");
 		
 		User user = userDao.findUserById(3);
 		

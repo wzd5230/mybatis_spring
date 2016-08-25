@@ -51,6 +51,15 @@
 	<bean id="userDaoImpl" class="cn.wzd.ssm.dao.impl.UserDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
+	
+	<!-- 使用userMapper类创建Mapper的bean
+	因为UserMapper只定义了接口，并没有实现类，所以无法直接实例化UserMapper类型的bean。
+	缺点：当Mapper较多的时候，每一个mapper都要注册一个bean，十分麻烦，后续可以使用MapperScannerConfigurer进行自动扫描。
+	 -->
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.wzd.ssm.mapper.UserMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 
 </beans>
 

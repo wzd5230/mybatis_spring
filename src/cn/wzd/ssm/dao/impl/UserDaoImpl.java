@@ -19,7 +19,7 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 	public User findUserById( int id ) throws Exception{
 		SqlSession session = this.getSqlSession();
 		
-		User user = session.selectOne("cn.wzd.ssm.mapper.UserMapper.findUserById", id);
+		User user = session.selectOne("cn.wzd.ssm.mapper.findUserById", id);
 		
 		/**
 		 * Spring 管理 SqlSession后，不允许认为关闭session，Spring会自动关闭SqlSession
