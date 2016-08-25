@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wzd.ssm.mapper.UserMapper">
+	
+	<!-- 通过用户id查询用户表 -->
+	<select id="findUserById" resultType="User" parameterType="int">
+		SELECT 
+		  user.id AS id,
+		  user.username AS username,
+		  user.birthday AS birthday,
+		  user.sex AS sex,
+		  user.address AS address
+		FROM
+		  user
+		WHERE
+		  id=4; 
+	</select>
+</mapper>
