@@ -12,6 +12,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<mappers>
 		<mapper resource="mybatisMapper/UserMapper.xml" />
-		<package name="cn.wzd.ssm.mapper"/>
+		<!-- 使用MapperScannerConfigurer时，如果mapper.java和mapper.xml在相同路径下
+		则可以不设置mapper。
+		 -->
+		<!-- <package name="cn.wzd.ssm.mapper.xml"/> -->
 	</mappers>
 </configuration>

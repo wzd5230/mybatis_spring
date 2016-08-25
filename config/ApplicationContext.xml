@@ -52,13 +52,23 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
-	<!-- 使用userMapper类创建Mapper的bean
-	因为UserMapper只定义了接口，并没有实现类，所以无法直接实例化UserMapper类型的bean。
-	缺点：当Mapper较多的时候，每一个mapper都要注册一个bean，十分麻烦，后续可以使用MapperScannerConfigurer进行自动扫描。
-	 -->
-	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="cn.wzd.ssm.mapper.UserMapper"></property>
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	<!--MapperScannerConfigurer配置
+	这里需要注意三点：
+      	第一，无需指定引用SqlSessionFactory，因为MapperScannerConfigurer在创建映射器时会通过自动装配的方式来引用。
+      	第二，创建的映射器的命名问题。从xml文件中我们可以看出，我们没有办法给MapperScannerConfigurer创建的这些映射器
+      		指定id或name属性，它们对我们似乎是不可见的。这个问题的解决之道在于采用了Spring针对自动侦测到的组件的默认命名策略，
+      		亦即把类/接口名字的首字母小写，其他不变，作为映射器的名字。例如，映射器接口TeacherMapper被扫描后创建的映射
+      		器bean名为teacherMapper。
+      	第三，可以使用@Component注解给映射器指定名称.
+      	第四，使用MapperScannerConfigurer时，如果mapper.java和mapper.xml在相同路径下则可以不设置mapper，见mybatis-config.xml
+      		中<mappers/>标签。
+	以下2个网址中对MapperScannerConfigurer的使用有一定的解释。
+		1. http://www.mybatis.org/spring/zh/mappers.html#MapperScannerConfigurer
+		2.http://legend2011.blog.51cto.com/3018495/980150
+	-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。可指定多个包，包与包之间用逗号或分号分隔-->
+		<property name="basePackage" value="cn.wzd.ssm.mapper"></property>
 	</bean>
 
 </beans>
