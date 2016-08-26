@@ -1,9 +1,13 @@
 package cn.wzd.ssm.test.mapper;
 
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.mybatis.spring.SqlSessionFactoryBean;
 
 import cn.wzd.ssm.mapper.UserMapper;
 import cn.wzd.ssm.po.User;
@@ -32,5 +36,7 @@ public class UserMapperTest {
 		User user = userMapper.findUserById(3);
 		
 		System.out.println(user);
+		
+		
 	}
 }
