@@ -87,6 +87,8 @@
  			SqlSessionFactory，然而自动装配就无法进行。这种情况下你必须使用<bean name>明确指定SqlSessionFactory或SqlSessionTemplate。
  			这里是用bean的name而不是实际bean对象，是因为Spring在处理完这个类的处理之后才会初始化属性占位符。
  		属性占位符- 
+
+ 		其他测试：A
 	--> 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。可指定多个包，包与包之间用逗号或分号分隔 -->
