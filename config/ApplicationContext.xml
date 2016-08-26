@@ -41,7 +41,16 @@
         <property name="defaultAutoCommit" value="true"></property>  
     </bean> 
 
-	<!-- 配置SqlSessionFactory对象的bean -->
+	<!-- 配置SqlSessionFactory对象的bean
+	为何这里class是SqlSessionFactoryBean，但是返回的却是SqlSessionFactory实例？SqlSessionFactoryBean类
+	实现了FactoryBean接口，Factory接口的source file中有如下描述。
+		  A bean that implements this interface cannot be used as a
+ 		* normal bean.</b> A FactoryBean is defined in a bean style, but the
+ 		* object exposed for bean references ({@link #getObject()} is always
+ 		* the object that it creates
+ 		一个bean如果实现了FactoryBean接口，就不能认为是一个普通的bean，它的bean的定义格式和普通的相同，
+ 		但是bean引用getObject返回的对象是它构建的对象，即SqlSessionFactory实例对象。
+	 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<property name="dataSource" ref="dataSource"></property>
@@ -65,9 +74,24 @@
 	以下2个网址中对MapperScannerConfigurer的使用有一定的解释。
 		1. http://www.mybatis.org/spring/zh/mappers.html#MapperScannerConfigurer
 		2.http://legend2011.blog.51cto.com/3018495/980150
-	-->
+		
+	在MapperScannerConfigurer类中的注释中，有如下说明：
+		* This configurer enables autowire for all the beans that it creates so that they are
+ 		* automatically autowired with the proper {@code SqlSessionFactory} or {@code SqlSessionTemplate}.
+		* If there is more than one {@code SqlSessionFactory} in the application, however, autowiring
+ 		* cannot be used. In this case you must explicitly specify either an {@code SqlSessionFactory} or
+ 		* an {@code SqlSessionTemplate} to use via the <em>bean name</em> properties. Bean names are used
+ 		* rather than actual objects because Spring does not initialize property placeholders until after
+ 		* this class is processed. 
+ 		翻译：这个配置器为他创建的所有bean使能自动装配，因此他们自动装配适当的SqlSessionFactory或SqlSessionTemplate。如果有多于一个的
+ 			SqlSessionFactory，然而自动装配就无法进行。这种情况下你必须使用<bean name>明确指定SqlSessionFactory或SqlSessionTemplate。
+ 			这里是用bean的name而不是实际bean对象，是因为Spring在处理完这个类的处理之后才会初始化属性占位符。
+ 		属性占位符- 
+
+ 		其他测试：A
+	--> 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!--basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。可指定多个包，包与包之间用逗号或分号分隔-->
+		<!-- basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。可指定多个包，包与包之间用逗号或分号分隔 -->
 		<property name="basePackage" value="cn.wzd.ssm.mapper"></property>
 	</bean>
 

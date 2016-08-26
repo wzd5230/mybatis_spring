@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</typeAliases>
 
 	<mappers>
-		<mapper resource="mybatisMapper/UserMapper.xml" />
+		<mapper resource="mybatisMapper/UserMapperDao.xml" />
 		<!-- 使用MapperScannerConfigurer时，如果mapper.java和mapper.xml在相同路径下
 		则可以不设置mapper。
 		 -->
